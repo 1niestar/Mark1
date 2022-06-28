@@ -1,0 +1,31 @@
+<Configuration status="error">
+    <Properties>
+        <Property name="layoutPattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%file:%line] - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${layoutPattern}" />
+        </Console>
+      <RollingFile name="ServerLog_File" fileName="./logs/server.log" filePattern="./logs/server.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${layoutPattern}" />
+            <TimeBasedTriggeringPolicy />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="STDOUT" />
+          <AppenderRef ref="ServerLog_File"/>
+        </Root>
+
+        <!-- 스프링 프레임워크에서 찍는건 level을 info로 설정 -->
+        <logger name="org.springframework" level="info" additivity="false" >
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="WebLog_File" />
+            <AppenderRef ref="ServerLog_File"/>
+        </logger>
+        <logger name="com.iniestar" level="debug" />
+
+
+    </Loggers>
+</Configuration>
