@@ -1,7 +1,6 @@
 package com.iniestar.mark1.controller.ext;
 
 import com.iniestar.mark1.constant.ApiReturnCode;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

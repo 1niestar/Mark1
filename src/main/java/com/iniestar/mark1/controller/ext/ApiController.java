@@ -14,14 +14,13 @@ import com.iniestar.mark1.service.RefreshTokenService;
 import com.iniestar.mark1.utils.TokenUtils;
 import com.iniestar.mark1.utils.Tool;
 import com.iniestar.mark1.structure.ApiReturn;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
