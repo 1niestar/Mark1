@@ -1,0 +1,43 @@
+################# [Spring Config] ##################
+spring:
+  # [DataSource] #
+  datasource:
+#    url: jdbc:oracle:thin:@localhost:1521:XE
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: MARK1
+    password: MARK1
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:XE
+
+  jpa:
+    database: oracle
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.OracleDialect
+#---------------------------------------------------
+
+################# [Spring Config] ##################
+logging:
+  config: classpath:log4j2-local.xml
+  level:
+    com.zaxxer.hikari: error
+    com.zaxxer.hikari.HikariConfig: debug
+
+#---------------------------------------------------
+
+################# [Tomcat Config] ##################
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+
+  servlet:
+    context-path: /
+
+  port: 8090
+#---------------------------------------------------

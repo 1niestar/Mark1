@@ -57,9 +57,9 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable).httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
-                .authorizeHttpRequests(authorizeRequest -> authorizeRequest
-    //                    .requestMatchers("/api/admin/").authenticated()
-                        .requestMatchers("/api/**").permitAll())
+                .authorizeHttpRequests().antMatchers("/api/admin/").hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
                 .formLogin(form -> form.loginPage("/login")
                         .successHandler(SuccessHandler())
                         .failureHandler(FailureHandler()))
@@ -91,7 +91,7 @@ public class SecurityConfig {
 
     @Bean // webSecurity는 전체적인 설정(구성)에,httpSecurity는 구체적인 세부URL에
     protected WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.debug(false).ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico");
+        return (web) -> web.debug(false).ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico");
     }
 
     @Bean // 사용자 정의 UserDetailsService

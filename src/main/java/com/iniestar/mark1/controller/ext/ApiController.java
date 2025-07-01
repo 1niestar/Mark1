@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.iniestar.mark1.config.exception.BusinessException;
-import com.iniestar.mark1.config.http.ProxyEngine;
+import com.iniestar.mark1.config.http.HttpUtil;
 import com.iniestar.mark1.constant.ApiReturnCode;
 import com.iniestar.mark1.constant.AuthConstant;
 import com.iniestar.mark1.db.entity.ApiInfo;
@@ -14,12 +14,14 @@ import com.iniestar.mark1.service.RefreshTokenService;
 import com.iniestar.mark1.utils.TokenUtils;
 import com.iniestar.mark1.utils.Tool;
 import com.iniestar.mark1.structure.ApiReturn;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -32,6 +34,9 @@ public class ApiController {
 
     @Autowired
     RefreshTokenService refreshTokenService;
+
+    @Autowired
+    HttpUtil httpUtil;
 
     @PostMapping("/api/register/{uri}/{method}")
     public ApiReturn API_register(HttpServletRequest request,
@@ -110,11 +115,10 @@ public class ApiController {
         // 3. Proxy 전송
         Type token = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> headers =  new Gson().fromJson(apiInfo.getHeaders(), token);
-        String body = ProxyEngine.send(uri, request.getMethod().toUpperCase(), params);
-      //  ProxyEngine.post(apiInfo.getUri(), headers, params);
+        ResponseEntity<String> responseEntity = httpUtil.send(uri, request.getMethod().toUpperCase(), null, params);
 
         ApiReturn apiReturn = new ApiReturn();
-        apiReturn.setBody(body);
+        apiReturn.setBody(responseEntity.getBody());
         apiReturn.setReturnCode(ApiReturnCode.SUCCESS);
 
         return apiReturn;

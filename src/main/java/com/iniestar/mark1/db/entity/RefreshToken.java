@@ -8,21 +8,21 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "refresh_token")
+@Table(name = "REFRESH_TOKEN")
 @Getter
 @Setter
 public class RefreshToken implements Serializable {
     @Id
-    @Column(name = "refresh_token_num")
-    Long refreshTokenNum;
+    @Column(name = "TOKEN_NUM")
+    Long tokenNum;
 
-    @Column(name = "uri")
+    @Column(name = "URI")
     String uri;
 
-    @Column(name = "token")
+    @Column(name = "TOKEN")
     String token;
 
-    @Column(name = "expiry_date")
+    @Column(name = "EXPIRY_DATE")
     LocalDateTime expiryDate;
 
     @OneToOne(mappedBy = "refreshToken", cascade = CascadeType.REMOVE, orphanRemoval = true)

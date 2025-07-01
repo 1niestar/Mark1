@@ -6,7 +6,7 @@ bootJar.enabled = true
 plugins {
     id("java")
     id("java-library")
-    id("org.springframework.boot") version "3.5.0"
+    id("org.springframework.boot") version "2.7.18"
     id("io.spring.dependency-management") version "1.1.7"
 
     val kotlinVersion = "1.8.21"
@@ -14,12 +14,10 @@ plugins {
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
     kotlin("kapt") version kotlinVersion
-
-    idea
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 configurations {
@@ -81,36 +79,20 @@ dependencies {
     // GSON
     implementation("com.google.code.gson:gson")
 
-    // Apache dependencies
-    implementation("org.apache.httpcomponents:httpclient:4.5.14")
-
     // Java servlet
     implementation("javax.servlet:jstl:1.2")
-
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:$queryDslVersion")
     implementation("com.querydsl:querydsl-sql:$queryDslVersion")
-    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
+
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.test {
     useJUnitPlatform()
-}
-
-// QueryDSL Build Configuration
-kotlin.sourceSets.main {
-    println("kotlin sourceSets build Dir::$buildDir")
-    setBuildDir("$buildDir")
-}
-
-idea {
-    module {
-        val kaptMain = file("build/generated/source/kapt/main")
-        sourceDirs.add(kaptMain)
-        generatedSourceDirs.add(kaptMain)
-    }
 }

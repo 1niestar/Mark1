@@ -2,8 +2,6 @@ package com.iniestar.mark1.config.handler;
 
 import com.iniestar.mark1.config.response.ServerErrorResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

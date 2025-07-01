@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+  <Properties>
+    <Property name="logdir">./logs</Property>
+    <Property name="logPattern">[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%t] %c{1} - %m%n</Property>
+  </Properties>
+  <Filter type="ThresholdFilter" level="trace"/>
+
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${logPattern}" charset="UTF-8"/>
+    </Console>
+
+    <RollingFile name="info" fileName="${logdir}/info.log" filePattern="${logdir}/info.log.%d{yyyyMMdd}">
+      <PatternLayout>
+        <Pattern>${logPattern}</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+
+
+    <RollingFile name="error" fileName="${logdir}/err.log" filePattern="${logdir}/err.log.%d{yyyyMMdd}">
+      <PatternLayout>
+        <Pattern>${logPattern}</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+
+    <RollingFile name="sql" fileName="${logdir}/sql.log" filePattern="${logdir}/sql.log.%d{yyyyMMdd}">
+      <PatternLayout>
+        <Pattern>${logPattern}</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+
+  </Appenders>
+
+  <Loggers>
+    <Logger name="com.iniestar.mark1" level="INFO" additivity="false">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="info" />
+    </Logger>
+
+    <Logger name="com.iniestar.mark1" level="ERROR" additivity="false">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="error" />
+    </Logger>
+
+    <Logger name="org.apache" level="ERROR" additivity="false">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="error" />
+    </Logger>
+
+    <!-- BEGIN::JDBC LOGGER-->
+    <Logger name="jdbc.sqlonly" level="INFO" additivity="false"> <!-- SQL문만 로그로 남기기 -->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+
+    <Logger name="jdbc.sqltiming" level="OFF" additivity="false"> <!-- SQL문 및 실행 시간 로그 -->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+
+    <Logger name="jdbc.resultsettable" level="DEBUG" additivity="false"> <!-- SQL 결과 조회 데이터 로그 -->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+
+    <Logger name="jdbc.audit" level="OFF" additivity="false"> <!-- JDBC 호출 정보 로그-->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+
+    <Logger name="jdbc.resultset" level="OFF" additivity="false"> <!-- ResultSet 포함 JDBC 호출 로그-->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+
+    <Logger name="jdbc.connection" level="OFF" additivity="false"> <!-- JDBC 연결 로그-->
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="sql"/>
+    </Logger>
+    <!-- END::JDBC LOGGER-->
+
+    <Root level="INFO">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="info" />
+    </Root>
+  </Loggers>
+
+</Configuration>

@@ -1,16 +1,16 @@
 package com.iniestar.mark1.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity(name = "role_info")
+@Entity(name = "ROLE_INFO")
 @Getter@Setter
 public class RoleInfo implements Serializable {
 

@@ -1,7 +1,7 @@
 package com.iniestar.mark1.service;
 
 import com.iniestar.mark1.db.entity.ApiInfo;
-import com.iniestar.mark1.db.repo.ApiListRepository;
+import com.iniestar.mark1.db.repo.ApiInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class ApiService {
 
     @Autowired
-    ApiListRepository repo;
+    ApiInfoRepository repo;
 
     public void save(ApiInfo entity) {
         repo.save(entity);

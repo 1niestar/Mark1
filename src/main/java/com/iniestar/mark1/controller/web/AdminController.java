@@ -5,10 +5,10 @@ import com.iniestar.mark1.db.entity.RoleInfo;
 import com.iniestar.mark1.db.repo.AdminRepository;
 import com.iniestar.mark1.db.repo.RoleInfoRepository;
 import com.iniestar.mark1.utils.Tool;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController

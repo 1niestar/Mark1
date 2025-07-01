@@ -1,39 +1,38 @@
 package com.iniestar.mark1.db.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
+
+import lombok.Data;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name = "api_info")
-@Getter
-@Setter
+@Table(name = "API_INFO")
+@Data
 public class ApiInfo extends BaseTimeEntity implements Serializable {
     @Id
-    @Column(name = "uri", nullable = false)
+    @Column(name = "URI", nullable = false)
     String uri;
 
-    @Column(name = "params")
+    @Column(name = "PARAMS")
     String params;
 
-    @Column(name = "client_ip")
+    @Column(name = "CLIENT_IP")
     String clientIp;
 
-    @Column(name = "access_token")
+    @Column(name = "ACCESS_TOKEN")
     String accessToken;
 
-    @Column(name = "http_method")
+    @Column(name = "HTTP_METHOD")
     String method = "POST";
 
-    @Column(name = "headers")
+    @Column(name = "HEADERS")
     String headers;
 
-    @Column(name = "secret_key")
+    @Column(name = "SECRET_KEY")
     String secretKey;
 
     @OneToOne
-    @JoinColumn(name = "refresh_token_num", referencedColumnName = "refresh_token_num")
+    @JoinColumn(name = "REFRESH_TOKEN", referencedColumnName = "TOKEN_NUM")
     RefreshToken refreshToken;
 }
